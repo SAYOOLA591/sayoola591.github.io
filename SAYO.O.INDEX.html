@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayo Olanbiwonnu | SOC Analyst</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="SOC Analyst with 4+ years experience in threat hunting, detection engineering, and incident response. Proficient in Splunk, Azure Sentinel, and KQL.">
+    <meta name="keywords" content="SOC Analyst, Threat Hunter, Detection Engineer, Cybersecurity, SIEM, Splunk, Azure Sentinel">
+    <meta name="author" content="Sayo Olanbiwonnu">
+    
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sayo Olanbiwonnu | SOC Analyst">
+    <meta property="og:description" content="4+ years monitoring security breaches and investigating incidents. I build labs, write detections, and document investigations.">
+    <meta property="og:url" content="https://mydfirdisciple.com">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sayo Olanbiwonnu | SOC Analyst">
+    <meta name="twitter:description" content="4+ years monitoring security breaches and investigating incidents. I build labs, write detections, and document investigations.">
+    
+    <!-- Favicon - teal shield emoji as SVG -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0c1222;
+            --bg-card: #131b2e;
+            --bg-subtle: #1a2540;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #2dd4bf;
+            --accent-light: rgba(45, 212, 191, 0.1);
+            --accent-hover: #14b8a6;
+            --border: #1e3a5f;
+            --green: #10b981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 0%, rgba(45, 212, 191, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(45, 212, 191, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(45, 212, 191, 0.06) 25%, rgba(45, 212, 191, 0.06) 26%, transparent 27%, transparent 74%, rgba(45, 212, 191, 0.06) 75%, rgba(45, 212, 191, 0.06) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(45, 212, 191, 0.06) 25%, rgba(45, 212, 191, 0.06) 26%, transparent 27%, transparent 74%, rgba(45, 212, 191, 0.06) 75%, rgba(45, 212, 191, 0.06) 76%, transparent 77%, transparent);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: -1;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll reveal - hidden by default */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delays */
+        .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal:nth-child(2) { transition-delay: 0.1s; }
+        .reveal:nth-child(3) { transition-delay: 0.15s; }
+        .reveal:nth-child(4) { transition-delay: 0.2s; }
+        .reveal:nth-child(5) { transition-delay: 0.25s; }
+        .reveal:nth-child(6) { transition-delay: 0.3s; }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(12, 18, 34, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section[id] {
+            scroll-margin-top: 60px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            padding-top: 140px;
+            position: relative;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 600px;
+            animation: fadeInUp 0.6s ease-out;
+            position: relative;
+        }
+
+        .hero-content::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+            border-radius: 2px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .hero-tag .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+            text-shadow: 0 0 40px rgba(45, 212, 191, 0.15);
+        }
+
+        .hero-alias {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 550px;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            animation: fadeInUp 0.6s ease-out 0.5s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease-out 0.6s both;
+        }
+
+        /* Hero Headline */
+        .hero-headline {
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        /* Hero Console */
+        .hero-console {
+            position: absolute;
+            right: 2rem;
+            top: 260px;
+            width: 400px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.8s both;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-console:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(45, 212, 191, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .console-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--bg-subtle);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .console-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .console-dot.red { background: #ef4444; }
+        .console-dot.yellow { background: #eab308; }
+        .console-dot.green { background: #22c55e; }
+
+        .console-title {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .console-body {
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .console-line {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.4rem;
+            align-items: flex-start;
+        }
+
+        .console-line.output {
+            padding-left: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .console-prompt {
+            color: var(--accent);
+        }
+
+        .console-text {
+            color: var(--text-primary);
+        }
+
+        .console-value {
+            color: var(--accent);
+        }
+
+        .console-cursor {
+            color: var(--accent);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Typing animation */
+        .console-line.typed {
+            opacity: 0;
+        }
+
+        .console-line.typed.visible {
+            opacity: 1;
+        }
+
+        .console-typed, .console-value {
+            color: var(--text-primary);
+        }
+
+        .console-line.output .console-value {
+            color: var(--accent);
+        }
+
+        /* Bento Cards */
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .bento-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(45, 212, 191, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .bento-card.framed {
+            border-left: 3px solid var(--accent);
+            border-radius: 4px 12px 12px 4px;
+        }
+
+        .bento-card.framed:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), 0 0 25px rgba(45, 212, 191, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+            box-shadow: 0 4px 20px rgba(45, 212, 191, 0.35);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            color: var(--bg-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(45, 212, 191, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-header h2 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .section-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Projects Section */
+        .projects {
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .projects .section-header {
+            flex-shrink: 0;
+        }
+
+        .projects-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            align-content: start;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .project-icon.small {
+            width: 40px;
+            height: 40px;
+        }
+
+        .project-card:hover .project-icon {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: scale(1.05);
+        }
+
+        .project-card.featured {
+            grid-column: span 2;
+        }
+
+        .project-card-sm {
+            grid-column: span 1;
+        }
+
+        .project-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card-sm h3 {
+            font-size: 0.95rem;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .project-card-sm p {
+            font-size: 0.8rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech span {
+            background: var(--bg-subtle);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .project-link svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s ease;
+        }
+
+        .project-link:hover svg {
+            transform: translate(2px, -2px);
+        }
+
+        .view-all-card {
+            border-style: dashed;
+            background: transparent;
+        }
+
+        .view-all-card:hover {
+            background: var(--accent-light);
+            border-style: solid;
+        }
+
+        .view-all-card h3 {
+            color: var(--accent);
+        }
+
+        .view-all-card .project-icon {
+            background: transparent;
+            border: 1px dashed var(--accent);
+        }
+
+        .view-all-card:hover .project-icon {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-style: solid;
+        }
+
+        .view-all-card .case-icon {
+            background: transparent;
+            border: 1px dashed var(--accent);
+        }
+
+        .view-all-card:hover .case-icon {
+            background: var(--accent);
+            border-style: solid;
+        }
+
+        /* Case Studies Section */
+        .cases {
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cases .section-header {
+            flex-shrink: 0;
+        }
+
+        .cases-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            align-content: start;
+        }
+
+        .case-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+            padding: 1.25rem;
+        }
+
+        .case-card:hover .case-arrow {
+            transform: translate(2px, -2px);
+        }
+
+        .case-card:hover .case-icon {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .case-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .case-info {
+            flex: 1;
+        }
+
+        .case-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .case-info p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .case-tags span {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .case-arrow {
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            margin-top: 0.5rem;
+        }
+
+        /* About Section */
+        .about {
+            min-height: 100vh;
+            padding-top: 90px;
+            padding-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about .section-header {
+            flex-shrink: 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+        }
+
+        .about-card,
+        .skills-card,
+        .certs-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 320px;
+        }
+
+        .about-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-card p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .skills-card h3,
+        .certs-card h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-content: flex-start;
+            flex: 1;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            height: fit-content;
+        }
+
+        .skill-item svg {
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .certs-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            flex: 1;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+        .cert-item:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .cert-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .cert-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .cert-issuer {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-card {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .contact-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .hero-console {
+                display: none;
+            }
+
+            .hero-content {
+                max-width: 800px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-headline {
+                font-size: 1.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .project-card.featured {
+                grid-column: span 2;
+            }
+
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-card {
+                grid-row: span 1;
+            }
+
+            .contact-card {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero-headline {
+                font-size: 1.25rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card.featured,
+            .project-card-sm {
+                grid-column: span 1;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .section-header::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">sayo<span>stryker</span></a>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#cases">Case Studies</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag"><span class="dot"></span> Open to opportunities</span>
+            <h1>Sayo Olanbiwonnu</h1>
+            <p class="hero-alias">@sayostryker</p>
+            <p class="hero-headline">SOC Analyst · Threat Hunter · Detection Engineer</p>
+            <p class="hero-description">
+                4+ years monitoring security breaches and investigating incidents. I build labs, write detections, and document investigations. Every project below is proof of work.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">See My Work</a>
+                <a href="#cases" class="btn btn-secondary">Read My Investigations</a>
+            </div>
+        </div>
+        <div class="hero-console">
+            <div class="console-header">
+                <span class="console-dot red"></span>
+                <span class="console-dot yellow"></span>
+                <span class="console-dot green"></span>
+                <span class="console-title">sayostryker.sh</span>
+            </div>
+            <div class="console-body">
+                <div class="console-line typed" data-delay="0">
+                    <span class="console-prompt">$</span>
+                    <span class="console-text"></span>
+                    <span class="console-typed" data-text="whoami"></span>
+                </div>
+                <div class="console-line output typed" data-delay="600">
+                    <span class="console-value" data-text="SOC Analyst | 4+ Years Experience"></span>
+                </div>
+                <div class="console-line typed" data-delay="1200">
+                    <span class="console-prompt">$</span>
+                    <span class="console-text"></span>
+                    <span class="console-typed" data-text="cat approach.txt"></span>
+                </div>
+                <div class="console-line output typed" data-delay="1800">
+                    <span class="console-value" data-text='"I don&#39;t just run playbooks"'></span>
+                </div>
+                <div class="console-line typed" data-delay="2400">
+                    <span class="console-prompt">$</span>
+                    <span class="console-text"></span>
+                    <span class="console-typed" data-text="ls ./expertise"></span>
+                </div>
+                <div class="console-line output typed" data-delay="3000">
+                    <span class="console-value" data-text="SIEM IR Threat-Hunting Detection-Eng"></span>
+                </div>
+                <div class="console-line typed" data-delay="3600">
+                    <span class="console-prompt">$</span>
+                    <span class="console-cursor">_</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="section-header reveal">
+            <h2>Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="bento-card project-card featured framed reveal">
+                <div class="project-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                </div>
+                <span class="project-tag">Flagship Project</span>
+                <h3>Enterprise SecOps Lab</h3>
+                <p>Complete SOC environment with detection engineering, real-world attack simulations, and end-to-end security operations.</p>
+                <div class="project-tech">
+                    <span>Splunk</span>
+                    <span>Zeek</span>
+                    <span>Suricata</span>
+                    <span>MITRE ATT&CK</span>
+                </div>
+                <a href="https://github.com/SAYOOLA591/entsecops" target="_blank" class="project-link">
+                    View on GitHub
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+            </div>
+            <div class="bento-card project-card reveal">
+                <div class="project-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+                </div>
+                <span class="project-tag">Cloud Security</span>
+                <h3>Azure Honeypot</h3>
+                <p>Cloud-based honeypot for threat intelligence collection and security monitoring research.</p>
+                <div class="project-tech">
+                    <span>Azure</span>
+                    <span>Sentinel</span>
+                    <span>KQL</span>
+                </div>
+                <a href="https://github.com/SAYOOLA591/Microsoft-Azure-HoneyPot" target="_blank" class="project-link">
+                    View on GitHub
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+            </div>
+            <div class="bento-card project-card project-card-sm reveal">
+                <div class="project-icon small">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+                <span class="project-tag">Automation</span>
+                <h3>CTI Integrations</h3>
+                <p>Threat intel to SIEM automation pipeline.</p>
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>SIEM</span>
+                </div>
+                <a href="https://github.com/SAYOOLA591/CTI-Integrations-Lab" target="_blank" class="project-link">
+                    View
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+            </div>
+            <div class="bento-card project-card project-card-sm reveal">
+                <div class="project-icon small">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                </div>
+                <span class="project-tag">Forensics</span>
+                <h3>Arkime PCAP</h3>
+                <p>Network forensics with full packet capture.</p>
+                <div class="project-tech">
+                    <span>Arkime</span>
+                    <span>PCAP</span>
+                </div>
+                <a href="https://github.com/SAYOOLA591/Network-Analysis-Packet-Capture-Arkime-" target="_blank" class="project-link">
+                    View
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+            </div>
+            <div class="bento-card project-card project-card-sm reveal">
+                <div class="project-icon small">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <span class="project-tag">Detection</span>
+                <h3>Zeek & Suricata</h3>
+                <p>Network detection with Splunk integration.</p>
+                <div class="project-tech">
+                    <span>Zeek</span>
+                    <span>Suricata</span>
+                </div>
+                <a href="https://github.com/SAYOOLA591/zeek-suricata" target="_blank" class="project-link">
+                    View
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+            </div>
+            <a href="https://github.com/SAYOOLA591?tab=repositories" target="_blank" class="bento-card project-card project-card-sm view-all-card reveal">
+                <div class="project-icon small">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                </div>
+                <span class="project-tag">GitHub</span>
+                <h3>All Projects</h3>
+                <p>View full repository list</p>
+                <div class="project-link" style="margin-top: auto;">
+                    Browse All
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section class="cases" id="cases">
+        <div class="section-header reveal">
+            <h2>IR Case Studies</h2>
+        </div>
+        <div class="cases-grid">
+            <a href="https://www.notion.so/Incident-Report-KCD-Domain-Compromise-Data-Exfiltration-2bb4243e498380eeb5b3ffde859661d7" target="_blank" class="bento-card case-card framed reveal">
+                <div class="case-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                </div>
+                <div class="case-info">
+                    <h3>KCD Domain Compromise</h3>
+                    <p>Domain compromise investigation with data exfiltration analysis</p>
+                    <div class="case-tags">
+                        <span>Active Directory</span>
+                        <span>Exfiltration</span>
+                        <span>IR</span>
+                    </div>
+                </div>
+                <svg class="case-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a href="https://www.notion.so/Email-Phishing-Investigation-2d04243e498380ffaca7f55ab710d68a" target="_blank" class="bento-card case-card reveal">
+                <div class="case-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div class="case-info">
+                    <h3>Email Phishing Investigation</h3>
+                    <p>Phishing analysis and malware detection workflow</p>
+                    <div class="case-tags">
+                        <span>Phishing</span>
+                        <span>Email Security</span>
+                        <span>Analysis</span>
+                    </div>
+                </div>
+                <svg class="case-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a href="https://www.notion.so/RDP-Login-and-Neshta-Malware-Detection-Incident-ID-905-2cb4243e498380cf9b0bc47547c15181" target="_blank" class="bento-card case-card reveal">
+                <div class="case-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                </div>
+                <div class="case-info">
+                    <h3>RDP & Neshta Malware</h3>
+                    <p>RDP attack investigation with malware analysis</p>
+                    <div class="case-tags">
+                        <span>RDP</span>
+                        <span>Malware</span>
+                        <span>Lateral Movement</span>
+                    </div>
+                </div>
+                <svg class="case-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a href="https://www.notion.so/Critical-Data-Exposure-Sensitive-Files-Discovered-on-Public-Internet-2d94243e498380a98b90d689d1744d1c" target="_blank" class="bento-card case-card reveal">
+                <div class="case-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                </div>
+                <div class="case-info">
+                    <h3>Critical Data Exposure</h3>
+                    <p>Sensitive files discovered on public internet</p>
+                    <div class="case-tags">
+                        <span>Data Leak</span>
+                        <span>OSINT</span>
+                        <span>Exposure</span>
+                    </div>
+                </div>
+                <svg class="case-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a href="https://www.notion.so/Investigation-Report-Phishing-Email-and-Malware-Delivery-2d94243e498380b9baeff94d0296abc1" target="_blank" class="bento-card case-card reveal">
+                <div class="case-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div class="case-info">
+                    <h3>Phishing & Malware Delivery</h3>
+                    <p>Full investigation of phishing email campaign</p>
+                    <div class="case-tags">
+                        <span>Phishing</span>
+                        <span>Malware</span>
+                        <span>Kill Chain</span>
+                    </div>
+                </div>
+                <svg class="case-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a href="https://github.com/SAYOOLA591" target="_blank" class="bento-card case-card view-all-card reveal">
+                <div class="case-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                </div>
+                <div class="case-info">
+                    <h3>More Reports Coming</h3>
+                    <p>View all projects on GitHub</p>
+                </div>
+                <svg class="case-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-header reveal">
+            <h2>About</h2>
+        </div>
+        <div class="about-grid">
+            <div class="bento-card about-card framed reveal">
+                <h3>The Journey</h3>
+                <p>4+ years as a SOC Analyst monitoring and investigating security breaches, incidents, and suspicious activities. Proficient in Splunk, Azure Sentinel, and Rapid7 for log analysis and threat detection.</p>
+                <p>I don't just run playbooks. I build labs, write detections, and document investigations. Every project here demonstrates real skills, not just certifications.</p>
+                <p>When I'm not in the SOC, I'm with family. They're why I put in the work.</p>
+            </div>
+            <div class="bento-card skills-card reveal">
+                <h3>Tools & Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                        <span>Splunk</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <span>Azure Sentinel</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                        <span>Rapid7</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        <span>KQL</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        <span>SPL</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                        <span>Zeek</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <span>Suricata</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        <span>Wireshark</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        <span>MITRE ATT&CK</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        <span>Python</span>
+                    </div>
+                    <div class="skill-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+                        <span>PowerShell</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bento-card certs-card reveal">
+                <h3>Certifications</h3>
+                <div class="certs-grid">
+                    <div class="cert-item">
+                        <div class="cert-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-name">CySA+</span>
+                            <span class="cert-issuer">CompTIA</span>
+                        </div>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-name">SC-200</span>
+                            <span class="cert-issuer">Microsoft</span>
+                        </div>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-name">Google Cybersecurity</span>
+                            <span class="cert-issuer">Google</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bento-card contact-card framed reveal">
+                <h2>Let's Connect</h2>
+                <p>Looking for my next challenge. Let's talk security.</p>
+                <div class="contact-links">
+                    <a href="https://github.com/SAYOOLA591" target="_blank" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/sayosoc123/" target="_blank" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        LinkedIn
+                    </a>
+                    <a href="mailto:your-email@email.com" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 sayostryker · Built with dedication</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script>
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            updateActiveNav();
+            revealOnScroll();
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function updateActiveNav() {
+            const sections = ['projects', 'cases', 'about'];
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    const sectionTop = section.offsetTop - 150;
+                    if (window.scrollY >= sectionTop) {
+                        current = id;
+                    }
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Scroll reveal
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            
+            reveals.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 100;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        // Console typing animation
+        function typeText(element, text, speed = 50) {
+            return new Promise(resolve => {
+                let i = 0;
+                const timer = setInterval(() => {
+                    if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(timer);
+                        resolve();
+                    }
+                }, speed);
+            });
+        }
+
+        async function animateConsole() {
+            const lines = document.querySelectorAll('.console-line.typed');
+            
+            for (const line of lines) {
+                const delay = parseInt(line.dataset.delay) || 0;
+                await new Promise(r => setTimeout(r, delay ? 400 : 0));
+                
+                line.classList.add('visible');
+                
+                const typedEl = line.querySelector('.console-typed');
+                const valueEl = line.querySelector('.console-value');
+                
+                if (typedEl && typedEl.dataset.text) {
+                    await typeText(typedEl, typedEl.dataset.text, 40);
+                } else if (valueEl && valueEl.dataset.text) {
+                    await typeText(valueEl, valueEl.dataset.text, 30);
+                }
+            }
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            revealOnScroll();
+            setTimeout(animateConsole, 1000);
+        });
+    </script>
+</body>
+</html>
